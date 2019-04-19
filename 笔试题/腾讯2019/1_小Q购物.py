@@ -46,7 +46,7 @@ class Solution(object):
         for i in range(n):
             import math
             k = math.ceil((coins[i + 1] - 1 - s) / coins[i])
-            print(k)
+            # print(k)
             res += k
             s += k * coins[i]
         return res
@@ -56,6 +56,4 @@ m,n = [int(x) for x in input().split(' ')]
 coins = []
 for _ in range(n):
     coins.append(int(input()))
-# m,n = 20,4
-# coins = [1,2,5,10]
 print(s.min_coin_num(coins,m,n))

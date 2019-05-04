@@ -74,8 +74,12 @@ def fun(n, nums1, nums2):
     return res
 
 
-n = 4
-nums1 = [2, 1, 1, 8]
-nums2 = [1, 2, 1, 2]
+n = int(input())
+nums1 = [int(x) for x in input().split(' ')]
+nums2 = [int(x) for x in input().split(' ')]
+
+# n = 4
+# nums1 = [2, 1, 1, 8]
+# nums2 = [1, 2, 1, 2]
 
 print(fun(n, nums1, nums2))

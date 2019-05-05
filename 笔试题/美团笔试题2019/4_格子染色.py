@@ -47,41 +47,49 @@ class Solution(object):
             if x1 == x2:
                 self.res += abs(y1 - y2) + 1
                 ls2.append([x1, (y1, y2)] if y1 < y2 else [x1, (y2, y1)])
-            print(x1, y1, x2, y2,self.res)
+        ls1, ls2 = self.merge(ls1, ls2)
         # print(ls1)
         # print(ls2)
-        self.fun(ls1, ls2)
-        # print(self.res)
+        # 再减掉横线和竖线相交的格子
+        for r1, i in ls1:
+            for j, r2 in ls2:
+                if r2[0] <= i <= r2[1] and r1[0] <= j <= r1[1]:
+                    self.res -= 1
         return self.res
 
-    def fun(self, ls1, ls2):
+    def merge(self, ls1, ls2):
         """
-        求相交的格子数量
+        合并横坐标和纵坐标相同的线段
         :param ls1:
         :param ls2:
         :return:
         """
         ls1 = sorted(ls1, key=lambda x: x[1])
         ls2 = sorted(ls2, key=lambda x: x[0])
+
         m, n = len(ls1), len(ls2)
-        print(ls1)
-        print(ls2)
         i = 0
+
+        # 合并横坐标相同的线段
         while i < m - 1:
             if ls1[i][1] == ls1[i + 1][1]:
-                print(ls1)
+                # 横坐标相同 线段有相交 合并
+                # 感觉这里写的似乎还有一点问题
                 if ls1[i][0][1] >= ls1[i + 1][0][0] and ls1[i + 1][0][1] >= ls1[i][0][0]:
                     a = min(ls1[i][0][1], ls1[i + 1][0][1]) - max(ls1[i][0][0], ls1[i + 1][0][0]) + 1
                     self.res -= a
                     t = [(min(ls1[i][0][0], ls1[i + 1][0][0]), max(ls1[i][0][1], ls1[i + 1][0][1])), ls1[i][1]]
-                    print(t)
-                    print(ls1[i], ls1[i + 1], a, "aaaaaaa")
                     ls1.pop(i + 1)
                     ls1.pop(i)
                     ls1.insert(i, t)
                     m -= 1
+                # 横坐标没有相交 i+1
+                else:
+                    i += 1
             else:
                 i += 1
+
+        # 合并纵坐标相同的线段
         i = 0
         while i < n - 1:
             if ls2[i][0] == ls2[i + 1][0]:
@@ -89,47 +97,27 @@ class Solution(object):
                     a = min(ls2[i][1][1], ls2[i + 1][1][1]) - max(ls2[i][1][0], ls2[i + 1][1][0]) + 1
                     self.res -= a
                     t = [ls2[i][0], (min(ls2[i][1][0], ls2[i + 1][1][0]), max(ls2[i][1][1], ls2[i + 1][1][1]))]
-                    print(t)
-                    print(ls2[i], ls2[i + 1], a, "bbbbbb")
                     ls2.pop(i + 1)
                     ls2.pop(i)
                     ls2.insert(i, t)
                     n -= 1
+                else:
+                    i += 1
             else:
                 i += 1
-
-        print(ls1)
-        print(ls2)
-        print(self.res)
-        self.res = 0
-
-        for r1, i in ls1:
-            self.res += r1[1] - r1[0] + 1
-            print(r1)
-            print(self.res)
-        for j, r2 in ls2:
-            self.res += r2[1] - r2[0] + 1
-            print(r2)
-            print(self.res)
-
-        for r1, i in ls1:
-            for j, r2 in ls2:
-                if r2[0]<=i<=r2[1] and r1[0]<=j<=r1[1]:
-                    print(r1,j,r2,j)
-                    self.res -= 1
+        return ls1, ls2
 
 
 # n = 3
 # grid = [[1, 2, 3, 2], [2, 5, 2, 3], [1, 4, 3, 4]]
-n = 10
-grid = [[-1, 0, -1, 2], [-10, 6, -10, 3], [0, 4, 0, -3], [-4, 2, -4, 6], [-10, -6, -10, 6], [9, 5, 9, 7],
-        [9, -1, 0, -1], [5, 2, 5, -7], [8, -1, -2, -1], [4, 7, 4, -7]]
+# n = 10
+# grid = [[-1, 0, -1, 2], [-10, 6, -10, 3], [0, 4, 0, -3], [-4, 2, -4, 6], [-10, -6, -10, 6], [9, 5, 9, 7],
+#         [9, -1, 0, -1], [5, 2, 5, -7], [8, -1, -2, -1], [4, 7, 4, -7]]
 
-# n = int(input())
-# grid = []
-# for i in range(n):
-#     grid.append(list(map(int,input().split(' '))))
-# print(grid)
+n = int(input())
+grid = []
+for i in range(n):
+    grid.append(list(map(int, input().split(' '))))
 
 s = Solution()
 print(s.main(grid))

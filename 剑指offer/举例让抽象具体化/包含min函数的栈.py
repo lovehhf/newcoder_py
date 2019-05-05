@@ -9,20 +9,22 @@ __author__ = 'huanghf'
 class Solution:
     def __init__(self):
         self.stack = []
-        self.min_stack = []
+        self.minStack = []
+
     def push(self, node):
-        # write code here
         self.stack.append(node)
-        if (not self.min_stack) or (node <= self.min_stack[-1]):
-            self.min_stack.append(node)
+        if not self.minStack:
+            self.minStack.append(node)
+        else:
+            if self.minStack[-1] > node:
+                self.minStack.append(node)
+
     def pop(self):
-        # write code here
-        if self.stack[-1] == self.min_stack[-1]:
-            self.min_stack.pop()
-        self.stack.pop()
+        if self.stack.pop() == self.minStack[-1]:
+            self.minStack.pop()
+
     def top(self):
-        # write code here
         return self.stack[-1]
+
     def min(self):
-        # write code here
-        return self.min_stack[-1]
+        return self.minStack[-1]

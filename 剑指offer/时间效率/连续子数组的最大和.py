@@ -34,15 +34,31 @@ i=4：
 """
 
 
-def FindGreatestSumOfSubArray(array):
-    # write code here
+class Solution:
+    def FindGreatestSumOfSubArray(self, array):
+        """
+        对于一个数A，若是A的左边累计数非负，那么加上A能使得值不小于A，认为累计值对
+        整体和是有贡献的。如果前几项累计值是负数，则认为有害于总和,抛弃之前的结果，重新累计
+        :param array:
+        :return:
+        """
+        n = len(array)
+        dp = [0] * n
+        dp[0] = array[0]
+        for i in range(1, n):
+            dp[i] = max(dp[i - 1] + array[i], array[i])
+        print(dp)
+        return max(dp)
 
-    res = array[0]     # 记录当前所有子数组的和的最大值
-    max_sum = array[0] # 包含array[i]的连续数组最大值
-    for i in array[1:]:
-        max_sum = max(max_sum+i,i)
-        res = max(max_sum, res)
-    return res
+    def FindGreatestSumOfSubArray2(self, array):
+        res = array[0]  # 记录当前所有子数组的和的最大值
+        max_sum = array[0]  # 包含array[i]的连续数组最大值
+        for i in array[1:]:
+            max_sum = max(max_sum + i, i)
+            res = max(max_sum, res)
+        return res
 
-array = [6,-3,-2,7,-15,1,2,2]
-print(FindGreatestSumOfSubArray(array))
+
+s = Solution()
+array = [6, -3, -2, 7, -15, 1, 2, 2, 8]
+print(s.FindGreatestSumOfSubArray(array))

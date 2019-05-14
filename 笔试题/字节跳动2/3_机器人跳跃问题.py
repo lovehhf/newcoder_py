@@ -48,11 +48,7 @@ __author__ = 'huanghf'
 3
 """
 
-# N = int(input())
-# M = list(map(int,input().split(' ')))
 
-N = 3
-M = [1, 6, 4]
 
 def bin_search():
     """
@@ -92,5 +88,9 @@ def fun():
     :return:
     """
     pass
+# N = int(input())
+# M = list(map(int,input().split(' ')))
 
+N = 3
+M = [1, 6, 4]
 bin_search()

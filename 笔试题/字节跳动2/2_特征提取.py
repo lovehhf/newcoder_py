@@ -57,7 +57,7 @@ N = int(input())
 M = []
 for i in range(N):
     # 读取每一行
-    line = input().split(' ')
+    line = input().split()
     M.append(line)
 
 M2 = [[(i[j * 2 + 1], i[j * 2 + 2]) for j in range(int(i[0]))] for i in M]

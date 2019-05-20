@@ -62,4 +62,4 @@ class Solution:
 
 root = List2TN([1, None, 2, None, 3, None, 4, None, 5])
 s = Solution()
-print(s.IsBalanced_Solution2(root))
+print(s.IsBalanced_Solution(root))

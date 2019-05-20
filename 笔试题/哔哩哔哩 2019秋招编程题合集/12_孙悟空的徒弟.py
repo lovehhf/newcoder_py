@@ -23,6 +23,8 @@ __author__ = 'huanghf'
 
 输出例子1:
 36
+
+
 """
 
 def solve(n,k,nums):

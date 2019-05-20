@@ -24,25 +24,62 @@ __author__ = 'huanghf'
 2 5
 3 4
 """
-def solve(n,k,nums):
+
+
+def solve(n, k, nums):
+    """
+    双指针
+    :param n:
+    :param k:
+    :param nums:
+    :return:
+    """
+
+    nums.sort()
+    res = []
+    L, R = 0, n - 1
+    while L < R:
+        if nums[L] + nums[R] == k:
+            res.append((nums[L], nums[R]))
+            L += 1
+        elif nums[L] + nums[R] < k:
+            L += 1
+        else:
+            R -= 1
+    if not res:
+        print("NO")
+    else:
+        for x, y in res:
+            print('%s %s' % (x, y))
+
+
+def solve3(n, k, nums):
+    """
+    95.00%
+    :param n:
+    :param k:
+    :param nums:
+    :return:
+    """
     res = []
     d = {}
     for i in nums:
-        d[i] = d.get(i,0) + 1
-    for i in set(nums):
-        if k-i in d:
-            res.append(sorted([i,k-i]))
+        d[i] = d.get(i, 0) + 1
+    for i in nums:
+        if k - i in d:
+            if (k - i!=i or d[i]>1):
+                res.append(sorted([i, k - i]))
     res = list(set([tuple(x) for x in res]))
     res = sorted(res)
     if res:
-        for x,y in res:
-            print('%s %s'%(x,y))
+        for x, y in res:
+            print('%s %s' % (x, y))
     else:
         print("NO")
 
-def solve2(n,k,nums):
+def solve2(n, k, nums):
     """
-    超时
+    超时 25%
     :param n:
     :param k:
     :param nums:
@@ -50,19 +87,20 @@ def solve2(n,k,nums):
     """
     nums.sort()
     res = []
-    for i in range(n-1):
-        for j in range(i+1,n):
-            if nums[i]+nums[j]==k:
-                res.append([nums[i],nums[j]])
-            if nums[i]+nums[j]>k:
+    for i in range(n - 1):
+        for j in range(i + 1, n):
+            if nums[i] + nums[j] == k:
+                res.append([nums[i], nums[j]])
+            if nums[i] + nums[j] > k:
                 break
     if res:
-        for x,y in res:
-            print('%s %s'%(x,y))
+        for x, y in res:
+            print('%s %s' % (x, y))
     else:
         print("NO")
+
 
 n = int(input())
 nums = [int(x) for x in input().split()]
 k = int(input())
-solve(n,k,nums)
+solve(n, k, nums)

@@ -9,6 +9,14 @@ __author__ = 'huanghf'
 
 class Solution:
     def Sum_Solution(self, n):
+        """
+        and: 左边为假时中断 返回右边的值
+        :param n:
+        :return:
+        """
+        return n and self.Sum_Solution(n-1)+n
+
+    def Sum_Solution2(self, n):
         # write code here
         #
         ans=n

@@ -53,25 +53,24 @@ Case #3: 6
 """
 
 
-def fun(S, N, P):
+def solve(n, p, nums):
     """
     1. 预排序
     2. 找出p个相邻的数,最大的数*p - 这p个数的和就是训练这p个小朋友需要所花的时间
     3. 遍历找出最小的时间
-
     :param S:小朋友的水平
     :param N:总共N个小朋友
     :param P:选出P个小朋友
     :return:
     """
-    S.sort()
-    sum_p = [0] * N  # 使用前缀和
-    sum_p[0] = S[0]
-    for i in range(1, N):
-        sum_p[i] = sum_p[i - 1] + S[i]
-    res = S[P - 1] * P - sum(S[:P])
-    for i in range(P, N):
-        res = min(res, S[i] * P - sum_p[i] + sum_p[i - P])
+    nums.sort()
+    pre_sum = [0] * (n + 1)  # 前缀和
+    for i in range(1,n+1):
+        pre_sum[i] = pre_sum[i - 1] + nums[i-1]
+    res = float('inf')
+    # print(pre_sum)
+    for i in range(n - p + 1):
+        res = min(res, nums[i + p - 1] * p - (pre_sum[i + p] - pre_sum[i]))
     return res
     # S.sort()
     # res = S[P - 1] * P - sum(S[:P])
@@ -82,9 +81,13 @@ def fun(S, N, P):
     # return res
 
 
-n = int(input())
-for i in range(n):
-    N, P = list(map(int, input().split(" ")))
-    S = list(map(int, input().split(" ")))
-    res = fun(S, N, P)
-    print("Case #%s: %s" % (i + 1, res))
+def main():
+    t = int(input())
+    for i in range(t):
+        n, p = [int(x) for x in input().split()]
+        nums = [int(x) for x in input().split()]
+        ans = 'Case #%s: %s' % (i + 1, solve(n, p, nums))
+        print(ans)
+
+
+main()
